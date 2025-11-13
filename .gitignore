@@ -1,0 +1,7 @@
+__pycache__/
+instance/
+*.pyc
+.env
+roomimatch.db
+*.log
+.DS_Store
