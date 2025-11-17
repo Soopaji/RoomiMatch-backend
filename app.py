@@ -31,8 +31,8 @@ CORS(app)
 jwt = JWTManager(app)
 db.init_app(app)
 
-# Use eventlet-based SocketIO for Render
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet")
+# Use threading-based SocketIO for Render (compatible with Python 3.12+)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # Initialize Google OAuth
 oauth, google = init_auth(app)
