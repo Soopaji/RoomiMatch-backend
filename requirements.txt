@@ -14,8 +14,8 @@ requests==2.31.0
 
 # Web server
 gunicorn==21.2.0
-eventlet==0.35.2   # REQUIRED for Flask-SocketIO with Python 3.11
-greenlet==3.0.3    # Eventlet dependency compatibility
+eventlet==0.35.2
+greenlet>=3.1.0  # Updated for Python 3.13 compatibility
 
 # Flask internal deps
 Werkzeug==3.0.1
