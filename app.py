@@ -94,7 +94,7 @@ def api_get_users():
 @app.route('/api/matches/potential', methods=['GET'])
 @jwt_required()
 def get_matches():
-    result, status_code = get_potential_matches()
+    result, status_code = find_potential_matches()
     return jsonify(result), status_code
 
 @app.route('/api/matches', methods=['POST'])
@@ -154,4 +154,4 @@ def health_check():
     return jsonify({'status': 'healthy'}), 200
 
 if __name__ == '__main__':
-    socketio.run(app, debug=os.getenv('FLASK_ENV') != 'production', host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    socketio.run(app, debug=os.getenv('FLASK_ENV') != 'production', host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), allow_unsafe_werkzeug=True)
