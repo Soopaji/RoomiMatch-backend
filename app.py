@@ -5,7 +5,7 @@ from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 from models import db
 from auth import init_auth, register_user, login_user, get_current_user, update_profile
-from matching import get_potential_matches, create_match, get_user_matches
+from matching import find_potential_matches, create_match, get_user_matches
 from chat import init_socket_events, get_conversation, get_unread_count, get_recent_conversations
 from notifications import get_user_notifications, mark_notification_read
 import json
