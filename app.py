@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from flask_socketio import SocketIO
 from models import db
 from auth import init_auth, register_user, login_user, get_current_user, update_profile
@@ -33,7 +33,11 @@ init_socket_events(socketio)
 
 # Create database tables
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Database initialization error: {e}")
+        pass
 
 # Auth routes
 @app.route('/api/auth/register', methods=['POST'])
@@ -150,4 +154,4 @@ def health_check():
     return jsonify({'status': 'healthy'}), 200
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    socketio.run(app, debug=os.getenv('FLASK_ENV') != 'production', host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
