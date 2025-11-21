@@ -20,7 +20,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'jwt-secret-key')
 
 # Initialize extensions
-CORS(app)
+CORS(app, supports_credentials=True, resources={
+    r"/*": {
+        "origins": [
+            "http://localhost:8081",
+            "http://localhost:3000",
+            "https://roomimatch-frontend.onrender.com"
+        ]
+    }
+})
 db.init_app(app)
 jwt = JWTManager(app)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
